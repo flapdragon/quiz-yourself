@@ -4,7 +4,31 @@ Simple quiz builder written in Svelte. You supply the questions and answers and 
 
 ## Getting Started
 
-Git clone the project. Then cd into the project directory and ...
+### Data
+After you've cloned the project will need to create a folder under src called data with a file called questions.js. This is editable in the code obviously but this is the default state.
+> quiz-yourself/src/data/questions.js
+
+The questions.js file should export an array with questions formatted like this:
+
+    export  const  questions = [
+        {
+            questionID:  "8b91878f-1127-4d01-8212-a71dbed01897",
+            questionType:  "single-answer",
+            questionText:  "What is your favorite type of cuisine? (Thanks ChatGPT)",
+            answerOptions: [
+                { value: "A", text: "A. Italian" },
+                { value: "B", text: "B. Mexican" },
+                { value: "C", text: "C. Chinese" },
+                { value: "D", text: "D. Japanese" },
+                { value: "E", text: "E. Indian" },
+                { value: "F", text: "F. American" },
+            ],
+        answerValue: [ "A" ]
+        }
+    ]
+
+### Install dependencies and run development server
+From the project directory:
 
 ```bash
 # Install dependencies
