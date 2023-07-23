@@ -10,11 +10,11 @@ After you've cloned the project will need to create a folder under src called da
 
 The questions.js file should export an array with questions formatted like this:
 
-    export  const  questions = [
+    export const questions = [
         {
-            questionID:  "8b91878f-1127-4d01-8212-a71dbed01897",
-            questionType:  "single-answer",
-            questionText:  "What is your favorite type of cuisine? (Thanks ChatGPT)",
+            questionID: "8b91878f-1127-4d01-8212-a71dbed01897",
+            questionType: "single-answer",
+            questionText: "What is your favorite type of cuisine? (Thanks ChatGPT)",
             answerOptions: [
                 { value: "A", text: "A. Italian" },
                 { value: "B", text: "B. Mexican" },
