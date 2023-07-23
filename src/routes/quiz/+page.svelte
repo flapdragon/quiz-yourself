@@ -6,7 +6,6 @@
 <script>
 	import { questions } from "../../data/questions"
 
-  console.log(questions)
   let showAnswer = false
   let disabled = true
   let answers = null
@@ -28,7 +27,10 @@
 	</p>
 
 	<p>
-    <button class="button-49" name="button" {disabled} on:click={() => (showAnswer = true)}>Submit Answer</button>
+    <button class="button-49" name="button-show" {disabled} on:click={() => (showAnswer = true)}>Submit Answer</button>
+    <!-- Not even trying to do flex or columnds right now. &nbsp; all day! -->
+    &nbsp; &nbsp; &nbsp; &nbsp; 
+    <button class="button-49 button-49-next" name="button-next" on:click={() => (console.log("next"))}>Next Question</button>
 	</p>
   
   {#if showAnswer}
@@ -44,7 +46,8 @@
 </div>
 
 <style>
-  /* Borrowed and modified from CSS Scan, button by Steven Lei (https://getcssscan.com/css-buttons-examples) */
+/* Borrowed and modified from CSS Scan, button by Steven Lei (https://getcssscan.com/css-buttons-examples) */
+/* Show Answer button */
 .button-49,
 .button-49:after {
   width: 160px;
@@ -64,6 +67,12 @@
   touch-action: manipulation;
 }
 
+/* Next Question button: changes background color only */
+.button-49-next {
+  background: linear-gradient(45deg, transparent 5%, #00E6F6 5%);
+  box-shadow: 6px 0px 0px #FF013C;
+}
+
 .button-49:after {
   --slice-0: inset(50% 50% 50% 50%);
   --slice-1: inset(80% -6px 0 0);
@@ -72,7 +81,7 @@
   --slice-4: inset(40% -6px 43% 0);
   --slice-5: inset(80% -6px 5% 0);
   
-  content: 'ALTERNATE TEXT';
+  content: 'SUBMIT ANSWER';
   display: block;
   position: absolute;
   top: 0;
@@ -82,6 +91,12 @@
   background: linear-gradient(45deg, transparent 3%, #00E6F6 3%, #00E6F6 5%, #FF013C 5%);
   text-shadow: -3px -3px 0px #F8F005, 3px 3px 0px #00E6F6;
   clip-path: var(--slice-0);
+}
+
+.button-49-next:after {
+  content: 'NEXT';
+  background: linear-gradient(45deg, transparent 3%, #FF013C 3%, #FF013C 5%, #00E6F6 5%);
+  text-shadow: -3px -3px 0px #F8F005, 3px 3px 0px #FF013C;
 }
 
 /* Added not disabled to glitch animation, https://stackoverflow.com/questions/9207304/css-pseudo-classes-inputnotdisablednottype-submitfocus */
