@@ -6,20 +6,37 @@
 <script>
 	import { questions } from "../../data/questions"
 
+  let question = null
   let showAnswer = false
   let disabled = true
   let answers = null
+
+  function getRandomIndex() {
+    const min = Math.ceil(0);
+    const max = Math.floor(questions.length - 1);
+    return Math.floor(Math.random() * (max - min + 1) + min) // min and max inclusive
+  }
+
+  function setQuestion() {
+    let index = getRandomIndex()
+    question = questions[index]
+    // Reset form
+    disabled = true
+    answers = null
+    showAnswer = false
+  }
+  setQuestion()
 </script>
 
 <div class="text-column">
 	<h1>Quiz</h1>
 
 	<p>
-		{questions[0].questionText}
+		{question.questionText}
 	</p>
 
 	<p>
-		{#each questions[0].answerOptions as option (option.value)}
+		{#each question.answerOptions as option (option.value)}
       <label>
         <input type="radio" id={option.value} bind:group={answers} name="answer" value={option.value} on:click={() => (disabled = false)} /> {option.text}
       </label><br />
@@ -30,13 +47,13 @@
     <button class="button-49" name="button-show" {disabled} on:click={() => (showAnswer = true)}>Submit Answer</button>
     <!-- Not even trying to do flex or columnds right now. &nbsp; all day! -->
     &nbsp; &nbsp; &nbsp; &nbsp; 
-    <button class="button-49 button-49-next" name="button-next" on:click={() => (console.log("next"))}>Next Question</button>
+    <button class="button-49 button-49-next" name="button-next" on:click={setQuestion}>Next Question</button>
 	</p>
   
   {#if showAnswer}
   <p>
     Correct Answer:
-    {#each questions[0].answerValue as correctAnswer}
+    {#each question.answerValue as correctAnswer}
       {correctAnswer}
     {/each}<br />
     Your Answer: <span class="answer-correct">{answers}</span>
