@@ -11,6 +11,7 @@
   let disabled = true
   let answers = null
 
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
   function getRandomIndex() {
     const min = Math.ceil(0);
     const max = Math.floor(questions.length - 1);
