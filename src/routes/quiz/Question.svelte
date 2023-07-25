@@ -1,12 +1,6 @@
-<svelte:head>
-	<title>Quiz</title>
-	<meta name="description" content="Quiz" />
-</svelte:head>
-
 <script>
 	import { questions } from "../../data/questions"
 
-  let index = 0
   let question = null
   let showAnswer = false
   let disabled = true
@@ -20,7 +14,7 @@
   }
 
   function setQuestion() {
-    index = getRandomIndex()
+    let index = getRandomIndex()
     question = questions[index]
     // Reset form
     disabled = true
@@ -31,25 +25,17 @@
 </script>
 
 <div class="text-column">
-	<h1>Question {index + 1}</h1>
+	<h1>Quiz</h1>
 
 	<p>
-		{@html question.questionText}
+		{question.questionText}
 	</p>
 
 	<p>
 		{#each question.answerOptions as option (option.value)}
-      {#if question.questionType == "single-answer"}
-        <label>
-          <input type="radio" id={option.value} bind:group={answers} name="answer" value={option.value} on:click={() => (disabled = false)} /> {option.text}
-        </label><br />
-      {/if}
-      {#if question.questionType == "multiple-answer"}
-        <label>
-          <input type="checkbox" bind:group={answers} value={option.value} on:click={() => (disabled = false)} />
-          {option.text}
-        </label><br />
-      {/if}
+      <label>
+        <input type="radio" id={option.value} bind:group={answers} name="answer" value={option.value} on:click={() => (disabled = false)} /> {option.text}
+      </label><br />
     {/each}
 	</p>
 
@@ -202,17 +188,3 @@
   font-weight: bold;
 }
 </style>
-
-<!-- <script>
-  import Question from "./Question.svelte"
-  import Upload from "./Upload.svelte"
-
-  let questions = null
-</script>
-
-{#if questions}
-  <Question questions={questions} />
-{:else}
-  <Upload bind:questions />
-{/if} -->
-

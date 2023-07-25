@@ -10,6 +10,7 @@ const questionNumberPattern = /^\d{1,4}\./
 const answerLetterPattern = /[A-Z]\./
 const answerPattern = /\([A-Z]/
 let objectString = "["
+// https://geshan.com.np/blog/2021/10/nodejs-read-file-line-by-line/
 allFileContents.split(/\r?\n/).forEach(line =>  {
   const firstTwoChars = line.trim().substring(0, 2)
   // New question
