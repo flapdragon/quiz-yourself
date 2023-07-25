@@ -17,8 +17,8 @@ allFileContents.split(/\r?\n/).forEach(line =>  {
   if (questionNumberPattern.test(line)) {
     let id = uuidv4()
     objectString += `{ questionID: "${id}", `
-    objectString += ` questionType: "single-answer",`
-    objectString += ` questionText: "${line.replace(/^\d{1,4}\. /, "")}`
+    objectString += `questionType: "single-answer", `
+    objectString += `questionText: "${line.replace(/^\d{1,4}\. /, "")}`
   }
   // Keep adding to question
   if (!questionNumberPattern.test(line) && !answerLetterPattern.test(line) && !answerPattern.test(line) && firstTwoChars != "") {
@@ -26,7 +26,7 @@ allFileContents.split(/\r?\n/).forEach(line =>  {
   }
   // Start answer options
   if (firstTwoChars == "A.") {
-    objectString += `", answerOptions: [ { value: "${firstTwoChars}", text: "${line.trim()}" }, `
+    objectString += `", answerOptions: [ { value: "${firstTwoChars.replace(".", "")}", text: "${line.trim()}" }, `
   }
   // Keep adding answer options
   if (firstTwoChars != "A." && answerLetterPattern.test(line)) {
@@ -49,5 +49,5 @@ fs.writeFile('./questions.js', objectString, err => {
     console.error(err);
   }
   // file written successfully
-});
+})
 
