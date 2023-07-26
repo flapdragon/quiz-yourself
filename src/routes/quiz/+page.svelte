@@ -6,23 +6,34 @@
 <script>
 	import { questions } from "../../data/questions"
 
+  // Using only Math.random wasn't really that random, so I decided to follow Coding Horror's advice and use a swapping or shuffling mechanism
+  // https://blog.codinghorror.com/the-danger-of-naivete/
+  // While he certainly had other issues he was adressing my main issue was that Math.random just wasn't even remotely random enough
+  // and I feel like this is commonly understood among JavaScript developers
+  // Does Math.random work one time? Sure. Does it work 200 times with the same min and max ranges? Not even a little bit.
+  for (let i = questions.length - 1; i > 0; i--) {
+    let n = getRandomIntInclusive(0, i)
+    let temp = questions[i]
+    questions[i] = questions[n]
+    questions[n] = temp
+  }
+
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+  function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min); // Min and max inclusive
+  }
+
   let index = 0
   let question = null
   let showAnswer = false
   let disabled = true
   let answers = null
 
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-  function getRandomIndex() {
-    const min = Math.ceil(0);
-    const max = Math.floor(questions.length - 1);
-    return Math.floor(Math.random() * (max - min + 1) + min) // min and max inclusive
-  }
-
   function setQuestion() {
-    index = getRandomIndex()
     question = questions[index]
-    // console.log(question)
+    index++
     // Reset form
     disabled = true
     answers = null
@@ -32,7 +43,7 @@
 </script>
 
 <div class="text-column">
-	<h1>Question {index + 1}</h1>
+	<h1>Question {index}</h1>
 
 	<p>
 		{@html question.questionText}
