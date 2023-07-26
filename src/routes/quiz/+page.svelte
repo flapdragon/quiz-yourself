@@ -22,6 +22,7 @@
   function setQuestion() {
     index = getRandomIndex()
     question = questions[index]
+    // console.log(question)
     // Reset form
     disabled = true
     answers = null
@@ -55,19 +56,24 @@
 
 	<p>
     <button class="button-49" name="button-show" {disabled} on:click={() => (showAnswer = true)}>Submit Answer</button>
-    <!-- Not even trying to do flex or columnds right now. &nbsp; all day! -->
+    <!-- Not even trying to do flex or columns right now. &nbsp; all day! -->
     &nbsp; &nbsp; &nbsp; &nbsp; 
     <button class="button-49 button-49-next" name="button-next" on:click={setQuestion}>Next Question</button>
 	</p>
   
   {#if showAnswer}
-  <p>
-    Correct Answer:
-    {#each question.answerValue as correctAnswer}
-      {correctAnswer}
-    {/each}<br />
-    Your Answer: <span class="answer-correct">{answers}</span>
-  </p>
+    <p>
+      Correct Answer:
+      {#each question.answerValue as correctAnswer}
+        {correctAnswer}
+      {/each}<br />
+      Your Answer: <span class="answer-correct">{answers}</span>
+    </p>
+    {#if question.concept}
+      <p>
+        {question.concept}
+      </p>
+    {/if}
   {/if}
 
 </div>

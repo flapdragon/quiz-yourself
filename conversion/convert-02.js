@@ -5,13 +5,14 @@ import { v4 as uuidv4 } from "uuid"
 // Rather than a series of if statements, which could be triggered in the wrong cases by unexpected data, the approach will be stateful, so that it is easier to manage the ifs and checks by adding the state as a factor.
 // The data is in order, so the actions taken should be in that same order.
 // NOTE: the path refers to a file here in the same directory, which it is during this one time conversion but that file is eventually deleted or moved.
-const allFileContents = fs.readFileSync('./questions-02.txt', 'utf-8')
+// TODO: Add Answers: plural to answerPattern
+const allFileContents = fs.readFileSync('./questions-03.txt', 'utf-8')
 // Initialize first state
 let lineState = "question"
 let questionLine = 0
 // Regex
 const answerLetterPattern = /^[A-Z]\./
-const answerPattern = /^Answer:/
+const answerPattern = /^Answers?:/
 const conceptPattern = /^Concept:/
 const wrongPattern = /^Wrong answers:/
 let objectString = "["
