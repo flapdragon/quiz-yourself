@@ -30,6 +30,7 @@
   let showAnswer = false
   let disabled = true
   let answers = null
+  let isCorrect = false
 
   function setQuestion() {
     question = questions[index]
@@ -38,6 +39,41 @@
     disabled = true
     answers = null
     showAnswer = false
+    isCorrect = false
+  }
+
+  function validateAnswer() {
+    showAnswer = true
+    // This nested ifs is redundant and messy but I don't have the energy or the desire to do better atm
+    // If there is more than one answer
+    if (question.answerValue.length > 1) {
+      if (question.answerValue.length === answers.length && question.answerValue.every((element) => element === answers.find(letter => letter === element) )) {
+        isCorrect = true
+      }
+      else {
+        // Move current question to later in the question array so that the uses sees it again soon
+        // Get new index
+        const newIndex = getRandomIntInclusive(index, index + 5)
+        // Move or copy question to new spot
+        questions.splice(newIndex, 0, questions.splice(index, 1)[0])
+        // Delete original question
+        questions.splice(index, 1)
+      }
+    }
+    else {
+      if (question.answerValue[0] === answers) {
+        isCorrect = true
+      }
+      else {
+        // Move current question to later in the question array so that the uses sees it again soon
+        // Get new index
+        const newIndex = getRandomIntInclusive(index, index + 5)
+        // Move or copy question to new spot
+        questions.splice(newIndex, 0, questions.splice(index, 1)[0])
+        // Delete original question
+        questions.splice(index, 1)
+      }
+    }
   }
   setQuestion()
 </script>
@@ -66,7 +102,7 @@
 	</p>
 
 	<p>
-    <button class="button-49" name="button-show" {disabled} on:click={() => (showAnswer = true)}>Submit Answer</button>
+    <button class="button-49" name="button-show" {disabled} on:click={() => validateAnswer()}>Submit Answer</button>
     <!-- Not even trying to do flex or columns right now. &nbsp; all day! -->
     &nbsp; &nbsp; &nbsp; &nbsp; 
     <button class="button-49 button-49-next" name="button-next" on:click={setQuestion}>Next Question</button>
@@ -78,7 +114,16 @@
       {#each question.answerValue as correctAnswer}
         {correctAnswer}
       {/each}<br />
-      Your Answer: <span class="answer-correct">{answers}</span>
+      Your Answer: <span class={isCorrect ? "answer-correct" : "answer-incorrect"}>{answers}</span>
+      {#if isCorrect}
+        <p>
+          You got it right! Fuck yeah!
+        </p>
+      {:else}
+      <p>
+        You fucked up bad.
+      </p>
+      {/if}
     </p>
     {#if question.concept}
       <p>
